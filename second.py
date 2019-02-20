@@ -4,7 +4,6 @@ import skimage.io as ski
 import numpy as np
 from PIL import Image
 
-
 path = "multispectral_images/"
 dirs = os.listdir(path)
 im = ski.imread_collection('multispectral_images/*.png')
@@ -65,13 +64,10 @@ band = [400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500,
 610, 620, 630, 640, 650, 660, 670, 680, 690, 700]
 bands = len(band) - 1
 
-listXYZ = [0, 0, 0]
-X = []
-Y = []
-Z = []
 # Create new numpy array image 
 image = np.zeros([512, 512, 3], dtype=np.uint8)
 
+# Calculate the XYZ at first and then corresponding RGB values
 for b in range(bands): 
   for w in range(width):
     for h in range(height):
@@ -100,10 +96,10 @@ for b in range(bands):
         B = 255 
       image[w,h] = (int(R), int(G), int(B))
 
+# Save the last image 
 img = Image.fromarray(image, 'RGB')
 img.save('second.png')
 img.show()
 
 print('image', image.shape)
-print('imageess', image)
 
